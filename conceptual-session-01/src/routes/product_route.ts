@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { productController } from "../controller/products.controller";
 
 export const productRoute = (req:IncomingMessage, res:ServerResponse)=>{
     // console.log(req.url);
@@ -10,7 +11,10 @@ export const productRoute = (req:IncomingMessage, res:ServerResponse)=>{
         // console.log('eita root route')
         res.writeHead(200, {"content-type": "application/json"});
         res.end(JSON.stringify({message: 'eita root route'}));
-    }else{
+    }else if(url?.startsWith('/products')){
+        productController(req, res);
+    }
+    else{
         res.writeHead(200, {'content-type': 'application/json'});
         res.end(JSON.stringify({message: 'eikhane kichu nai'}));
     }
